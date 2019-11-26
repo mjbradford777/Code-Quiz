@@ -1,0 +1,13 @@
+html {
+    font-size: 16px;
+}
+
+main {
+    text-align: center;
+}
+
+#timer {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

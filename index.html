@@ -2,18 +2,24 @@
 <html lang="en-us">
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <title>Code Quiz</title>
     </head>
 
     <body>
         <header>
-            <h6>View Highscores</h6>
-            <h6>Time: <span id="time">0</span></h6>
+            <h6 id="high-scores">View Highscores</h6>
+            <h6 id="timer">Time: <span id="time">0</span></h6>
         </header>
 
+        <br>
+        <br>
+        
         <main>
             <h1>Coding Quiz Challenge</h1>
             <p>Try to answer the following code related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            <button  id="start-button" type="button" class="btn btn-success">Begin Quiz</button>
         </main>
     </body>
 </html>
