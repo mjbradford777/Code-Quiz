@@ -40,28 +40,21 @@ let questionCounter;
 let seconds;
 let retry;
 
-// const timer = () => {
-//     time.textContent = seconds;
-//     seconds--;
-//     if (seconds < 0) {
-//         clearInterval(timerStart);
-//     }
-// }
-
 const timer = () => {
-    time.textContent = seconds;
-    seconds--;
-    if (seconds < 0) {
-        clearInterval(timerStart);
+    if (!isNaN(seconds)){
+        time.textContent = seconds;
+        seconds--;
+        if (seconds < 0) {
+            clearInterval(timerStart);
+        }
+        console.log(seconds);
     }
 }
 
-const timerStart = () => {
-    setInterval(timer, 1000);
-}
+let timerStart = setInterval(timer, 1000);
 
 const timerPause = () => {
-    clearInterval(timer);
+    clearInterval(timerStart);
 }
 
 const startQuiz = () => {
@@ -80,13 +73,14 @@ const startQuiz = () => {
         newElement.id = choice;
         content.appendChild(newElement);
     })
-    seconds = 20;
-    timerStart();
+    seconds = 75;
+    timerStart;
 };
 
 const advanceQuestion = () => {
     if (correct === false) {
         document.getElementById(`${questionCounter}-incorrect`).style.display = 'none';
+        seconds -= 10;
     } else {
         document.getElementById(`${questionCounter}-correct`).style.display = 'none';
     }
@@ -95,7 +89,7 @@ const advanceQuestion = () => {
     }
     questionCounter++;
     if (questionCounter < 5) {
-        timerStart();
+        timerStart = setInterval(timer, 1000);
         newElement = document.createElement('h2');
         newElement.textContent = questions[questionCounter].title;
         newElement.id = questionCounter;
@@ -108,6 +102,7 @@ const advanceQuestion = () => {
             content.appendChild(newElement);
         })
     } else if (seconds >= 0) {
+        time.textContent = seconds;
         newElement = document.createElement('h2');
         newElement.textContent = 'Good job!';
         newElement.id = 'good';
@@ -168,7 +163,7 @@ const checkAnswer = (Event) => {
 
         timerPause();
         
-        setTimeout(advanceQuestion, 5000);
+        setTimeout(advanceQuestion, 1000);
     }
 }
 
