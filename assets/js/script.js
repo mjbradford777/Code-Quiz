@@ -37,6 +37,32 @@ let btns;
 let newElement;
 let correct;
 let questionCounter;
+let seconds;
+let retry;
+
+// const timer = () => {
+//     time.textContent = seconds;
+//     seconds--;
+//     if (seconds < 0) {
+//         clearInterval(timerStart);
+//     }
+// }
+
+const timer = () => {
+    time.textContent = seconds;
+    seconds--;
+    if (seconds < 0) {
+        clearInterval(timerStart);
+    }
+}
+
+const timerStart = () => {
+    setInterval(timer, 1000);
+}
+
+const timerPause = () => {
+    clearInterval(timer);
+}
 
 const startQuiz = () => {
     title.style.display = 'none';
@@ -54,6 +80,8 @@ const startQuiz = () => {
         newElement.id = choice;
         content.appendChild(newElement);
     })
+    seconds = 20;
+    timerStart();
 };
 
 const advanceQuestion = () => {
@@ -62,8 +90,12 @@ const advanceQuestion = () => {
     } else {
         document.getElementById(`${questionCounter}-correct`).style.display = 'none';
     }
+    if (seconds < 0) {
+        questionCounter = 4;
+    }
     questionCounter++;
     if (questionCounter < 5) {
+        timerStart();
         newElement = document.createElement('h2');
         newElement.textContent = questions[questionCounter].title;
         newElement.id = questionCounter;
@@ -75,13 +107,36 @@ const advanceQuestion = () => {
             newElement.id = choice;
             content.appendChild(newElement);
         })
-    } else {
+    } else if (seconds >= 0) {
         newElement = document.createElement('h2');
         newElement.textContent = 'Good job!';
+        newElement.id = 'good';
         content.appendChild(newElement);
         newElement = document.createElement('p');
         newElement.textContent = `Your score is ${time.innerHTML}`;
+        newElement.id = 'score-display';
         content.appendChild(newElement);
+        newElement = document.createElement('button');
+        newElement.textContent = 'Retry';
+        newElement.setAttribute('class', 'btn btn-success btn-block');
+        newElement.id = 'retry';
+        content.appendChild(newElement);
+        questionCounter = 0;
+        retry = document.getElementById('retry');
+        retry.setAttribute("onclick","document.location.reload()") ;
+    } else {
+        newElement = document.createElement('h2');
+        newElement.textContent = 'Too bad, you ran out of time. Try again!';
+        newElement.id = 'fail';
+        content.appendChild(newElement);
+        newElement = document.createElement('button');
+        newElement.textContent = 'Retry';
+        newElement.setAttribute('class', 'btn btn-success btn-block');
+        newElement.id = 'retry';
+        content.appendChild(newElement);
+        questionCounter = 0;
+        retry = document.getElementById('retry');
+        retry.setAttribute("onclick","document.location.reload()");
     }
     
 }
@@ -109,7 +164,11 @@ const checkAnswer = (Event) => {
             btns = document.getElementById(questions[questionCounter].choices[i]);
             btns.style.display = 'none';
         }
-        setTimeout(advanceQuestion, 1000);
+        console.log(seconds);
+
+        timerPause();
+        
+        setTimeout(advanceQuestion, 5000);
     }
 }
 
