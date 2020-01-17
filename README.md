@@ -5,6 +5,9 @@ permalink: /index.html
 #### Code-Quiz, 12/3/19
 ​
 #### By Michael Bradford
+
+## The Link
+https://mjbradford777.github.io/Code-Quiz/
 ​
 ## Description
 Code Quiz is a timed coding quiz with scores stored locally. Scores are stored with corresponding initials.
